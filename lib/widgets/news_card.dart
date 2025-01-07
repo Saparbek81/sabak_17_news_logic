@@ -12,6 +12,14 @@ class NewCard extends StatelessWidget {
   });
   final int index;
   final List<Articles> data;
+  void openURL(String url) async {
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not Launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,19 +60,7 @@ class NewCard extends StatelessWidget {
                           style: newsTextStyle),
                       Text(news.description ?? 'beth', style: newsTextStyle),
                       TextButton(
-                        onPressed: () async {
-                          final url = news.url;
-                          if (url != null) {
-                            final uri = Uri.tryParse(url);
-                            if (uri != null) {
-                              await launchUrl(uri);
-                            } else {
-                              print("Invalid URL: $url");
-                            }
-                          } else {
-                            print("No URL available");
-                          }
-                        },
+                        onPressed: () => openURL(news.url ?? ""),
                         child: Text(
                           news.url ??
                               'No URL', // Эгерде URL жок болсо, "No URL" деп жазылат
