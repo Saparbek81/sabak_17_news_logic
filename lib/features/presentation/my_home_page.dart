@@ -36,12 +36,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Text('server ishtebeit'),
               );
             } else if (snapshot.connectionState == ConnectionState.done) {
-              return ListView.builder(
-                  itemCount: snapshot.data!.articles!.length,
-                  itemBuilder: (context, index) {
-                    final data = snapshot.data!.articles;
-                    return NewCard(index: index, data: data!);
-                  });
+              return RefreshIndicator(
+                onRefresh: () async {},
+                child: ListView.builder(
+                    itemCount: snapshot.data!.articles!.length,
+                    itemBuilder: (context, index) {
+                      final data = snapshot.data!.articles;
+                      return NewCard(index: index, data: data!);
+                    }),
+              );
             }
             return Center(
               child: Text('Белгисиз абал'),
