@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     itemCount: snapshot.data!.articles!.length,
                     itemBuilder: (context, index) {
                       final data = snapshot.data!.articles;
-                      return NewCard(index: index, data: data!);
+                      return NewCard(index: index, data: data);
                     }),
               );
             }

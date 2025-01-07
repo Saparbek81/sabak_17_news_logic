@@ -11,7 +11,7 @@ class NewCard extends StatelessWidget {
     required this.data,
   });
   final int index;
-  final List<Articles> data;
+  final List<Articles>? data;
   void openURL(String url) async {
     Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
@@ -24,7 +24,7 @@ class NewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateFormat date = DateFormat();
-    final news = data[index];
+    final news = data?[index];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Card(
@@ -42,7 +42,7 @@ class NewCard extends StatelessWidget {
                   width: 130,
                   height: 135,
                   child: Image.network(
-                    news.urlToImage ?? "",
+                    news?.urlToImage ?? "",
                     fit: BoxFit.cover,
                   )),
               Expanded(
@@ -52,17 +52,17 @@ class NewCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                          news.publisheddAt != null
+                          news?.publisheddAt != null
                               ? DateFormat.MMMEd()
                                   .add_jm()
-                                  .format(DateTime.parse(news.publisheddAt!))
+                                  .format(DateTime.parse(news!.publisheddAt!))
                               : 'Unknown Date',
                           style: newsTextStyle),
-                      Text(news.description ?? 'beth', style: newsTextStyle),
+                      Text(news?.description ?? 'beth', style: newsTextStyle),
                       TextButton(
-                        onPressed: () => openURL(news.url ?? ""),
+                        onPressed: () => openURL(news?.url ?? ""),
                         child: Text(
-                          news.url ??
+                          news?.url ??
                               'No URL', // Эгерде URL жок болсо, "No URL" деп жазылат
                           style: newsUrlTextStyle,
                           overflow: TextOverflow.ellipsis,
